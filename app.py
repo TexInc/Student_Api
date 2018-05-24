@@ -89,8 +89,7 @@ def get_tables():
     # 登录成功后，返回的是你教务系统的主页源代码
     r = session.get('http://' + host + "/" + 'xs_main.aspx?xh=' + student_id, headers=headers)
     link_dic = get_operate_link(host, r.text)
-    for i in range(len(list(link_dic.keys()))):
-        print(list(link_dic.keys())[i], ':', link_dic[list(link_dic.keys())[i]])
+    print(list(link_dic))
 
     # 获取学生个人课表和个人信息
     student_class = session.get(link_dic['学生个人课表'], headers=headers)
@@ -102,4 +101,4 @@ def get_tables():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
