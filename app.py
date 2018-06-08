@@ -33,7 +33,7 @@ def not_found(error):
 def get_tables():
     if not request.json or not'username' in request.json and not'password' in request.json:
         abort(400)
-    student_id = request.json['student_id']
+    student_id = request.json['username']
     password = request.json['password']
     host = "125.221.35.100"
     url = 'http://' + host + "/" + 'default2.aspx'
