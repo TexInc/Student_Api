@@ -7,6 +7,13 @@ Created on 2018/5/18
 
 from bs4 import BeautifulSoup
 
+stu_info_grade = {
+    'id': '',
+    'title': '',
+    'name': '',
+    'department': '',
+    'major': ''
+}
 stu_info = {
     'id': '',
     'name': '',
@@ -30,6 +37,22 @@ def get_student_info(user_table):
             stu_info[(stu_info_keys_list[i-5])] = user_content.text[3:]
 
     return stu_info
+
+
+def get_student_info_grade(user_table):
+
+    soup = BeautifulSoup(user_table, 'lxml')
+
+    stu_info_grade_keys_list = list(stu_info_grade.keys())
+    # 获取学生基本信息
+    for i in range(3, 8):
+        user_content = soup.find('span', attrs={'id': "Label"+str(i)})
+        if i == 4 or i == 7:
+            stu_info_grade[(stu_info_grade_keys_list[i - 3])] = user_content.text
+        else:
+            stu_info_grade[(stu_info_grade_keys_list[i - 3])] = user_content.text[3:]
+
+    return stu_info_grade
 
 
 def get_timetable_dic(user_table):
