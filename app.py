@@ -117,7 +117,7 @@ def get_grade():
         session = requests.session()
 
         # 获取标识码
-        soup = BeautifulSoup(session.get(url, headers=headers).text, 'lxml')
+        soup = BeautifulSoup(session.get(url, headers=headers, allow_redirects=False).text, 'lxml')
         __VIEWSTATE = soup.find_all('input', type="hidden")[0]['value']
 
         captcha_url = 'http://' + host + "/" + 'CheckCode.aspx'
@@ -158,7 +158,7 @@ def get_grade():
             return jsonify({'error': "你输入的学号或密码不正确"})
         else:
             # 登录成功后，返回的是你教务系统的主页源代码
-            r = session.get('http://' + host + "/" + 'xs_main.aspx?xh=' + student_id, headers=headers)
+            r = session.get('http://' + host + "/" + 'xs_main.aspx?xh=' + student_id, headers=headers, allow_redirects=False)
             link_dic = get_operate_link(host, r.text)
             print(list(link_dic))
 
@@ -169,7 +169,7 @@ def get_grade():
             query_post_data = {
                 '__VIEWSTATE': __VIEWSTATE,
                 'ddlXN': '2017-2018',
-                'ddlXQ': '1',
+                'ddlXQ': '2',
                 'Button1': '按学期查询'
             }
             query_header = {
@@ -178,9 +178,9 @@ def get_grade():
                 'Referer': urllib.parse.quote(link_dic['成绩查询'], encoding='gbk', safe='/:?=&')
             }
             user_grade = session.post(link_dic['成绩查询'], data=query_post_data, headers=query_header)
-            stu_info_grade = get_student_info_grade(user_grade.text)
+            # stu_info_grade = get_student_info_grade(user_grade.text)
             stu_grade = (get_Grade(user_grade.text))
-            return jsonify({'stu_info':stu_info_grade,'stu_grade': stu_grade})
+            return jsonify({'stu_grade': stu_grade})
 
 
 if __name__ == '__main__':

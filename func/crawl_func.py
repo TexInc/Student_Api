@@ -48,7 +48,7 @@ def get_student_info_grade(user_table):
     for i in range(3, 8):
         user_content = soup.find('span', attrs={'id': "Label"+str(i)})
         if i == 4 or i == 7:
-            stu_info_grade[(stu_info_grade_keys_list[i - 3])] = user_content.text
+            stu_info_grade[(stu_info_grade_keys_list[i - 3])] = user_content.text[:-1]
         else:
             stu_info_grade[(stu_info_grade_keys_list[i - 3])] = user_content.text[3:]
 
