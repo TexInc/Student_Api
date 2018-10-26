@@ -35,6 +35,8 @@ def get_tables():
         abort(400)
     student_id = request.values['student_id']
     password = request.values['password']
+    print(student_id)
+    print(password)
     host = "125.221.35.100"
     url = 'http://' + host + "/" + 'default2.aspx'
     headers = {
@@ -168,8 +170,8 @@ def get_grade():
             __VIEWSTATE = soup.find_all('input', type="hidden")[0]['value']
             query_post_data = {
                 '__VIEWSTATE': __VIEWSTATE,
-                'ddlXN': '2017-2018',
-                'ddlXQ': '2',
+                'ddlXN': '2018-2019',
+                'ddlXQ': '1',
                 'Button1': '按学期查询'
             }
             query_header = {
