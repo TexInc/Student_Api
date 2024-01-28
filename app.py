@@ -37,7 +37,8 @@ def get_tables():
     password = request.values['password']
     print(student_id)
     print(password)
-    host = "125.221.35.100"
+    # website of student manager system
+    host = "127.0.0.1"
     url = 'http://' + host + "/" + 'default2.aspx'
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36',
